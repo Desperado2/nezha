@@ -12,9 +12,9 @@
 
 * [关于redis的几件小事](redis)
 	* [(一)redis的使用目的与问题](redis/关于redis的几件小事(一)redis的使用目的与问题.md)
-	* [(二)redis线程模型](redis/关于redis的几件小事(二)redis线程模型.md)
-	* [(三)redis的数据类型与使用场景](redis/关于redis的几件小事(三)redis的数据类型与使用场景.md)
-	* [(四)redis的过期策略以及内存淘汰机制](redis/关于redis的几件小事(四)redis的过期策略以及内存淘汰机制.md)
+	* [(二)redis线程模型] (redis/关于redis的几件小事(二)redis线程模型.md)
+	* [(三)redis的数据类型与使用场景] (redis/关于redis的几件小事(三)redis的数据类型与使用场景.md)
+	* [(四)redis的过期策略以及内存淘汰机制] (redis/关于redis的几件小事(四)redis的过期策略以及内存淘汰机制.md)
 	* [(五)redis保证高并发以及高可用](redis/关于redis的几件小事(五)redis保证高并发以及高可用.md)
 	* [(六)redis的持久化](redis/关于redis的几件小事(六)redis的持久化.md)
 	* [(七)redis缓存雪崩与穿透](redis/关于redis的几件小事(七)redis缓存雪崩与穿透.md)
