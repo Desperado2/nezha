@@ -12,7 +12,7 @@
 
 * [关于redis的几件小事](redis)
 
-	* [(一)redis的使用目的与问题](redis/关于redis的几件小事(一)redis的使用目的与问题.md)
+	* [(一)redis的使用目的与问题](redis/关于redis的几件小事（一）redis的使用目的与问题.md)
 	
 	* [(二)redis线程模型](redis/关于redis的几件小事(二)redis线程模型.md)
 	
