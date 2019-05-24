@@ -9,5 +9,5 @@
 
 这样就可以保证并发操作时的数据顺序问题。  
 
-![解决方案示意图.png](https://upload-images.jianshu.io/upload_images/8494967-d478273aefbf5f5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![解决方案示意图.png](/image/redis/9-1消息一致性.webp)
 

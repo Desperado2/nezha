@@ -7,7 +7,7 @@ redis cluster是redis提供的集群模式。
 ③高可用。每个master node都有多个 slave node，如果master node挂了，redis cluster机制就会自动将某个slave node切换成 master node。
 
 所以redis cluster是 多master + 读写分离 + 高可用 的。只要基于edis cluster去搭建集群，就可以达到搭建 replication复制+主从架构+读写分离+哨兵集群+高可用的 集群架构。  
-![redis cluster的架构  示意图.png](https://upload-images.jianshu.io/upload_images/8494967-897a7101e2cae62d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![redis cluster的架构  示意图.png](/image/redis/10-1cluster架构.webp)
 
 ### 2.redis cluster和replication+sentinal
 ①输入数据量很少，主要是承载高并发的场景，单机就可以了。   
@@ -29,19 +29,19 @@ redis cluster是redis提供的集群模式。
 ####(2)最古老的hash算法  
 **原理** ：来了一个key之后，计算hash值，然后对master node节点数量取模，将数据哈希到不同的节点。  
 **存在问题** :会导致大量缓存重建的问题。这种情况下，一旦一个master宕机了，所有的请求过来之后，就会对新的节点数量(原节点数量-1)去取模，然后去相应的node取数据，这样会导致请求走不到原本路由到的实例上面去，导致大量的key瞬间全部失效。  
-![)最古老的hash算法  示意图.png](https://upload-images.jianshu.io/upload_images/8494967-bef0c3a972c10016.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![)最古老的hash算法  示意图.png](/image/redis/10-2最古老hash.webp)
 
 #### (3)一致性hash算法(自动缓存迁移)
 
 **原理** ：将所有master node落在一个圆环上面，然后，有一个key过来之后。同样就是hash值，然后会用hash值在圆环对应的各个点上(每个点都有一个hash值)去对比，看hash值落在那个位置，落在圆环上面以后，就会顺时针旋转去寻找距离自己最近的一个节点，数据的存储于读取都在该节点进行。   
 **优势** ：保证了任何一个master宕机，只会影响之前在那个master上面的数据，因为照着顺时针走，全部在之前的master上面找不到了，master也宕机了，就会继续顺着顺时针走到下一个master节点去。这样就只会有一部分数据丢失。  
 **存在问题** ：假如有3个master，那么就会丢失1/3的数据，这也是很多的。还会存在 缓存热点的问题。 **缓存热点问题** ：可能在某个hash区间内存在大值特别多，那么就会导致大量的数据进入同一个master，造成该master出现瓶颈。  
-![一致性hash算法示意图.png](https://upload-images.jianshu.io/upload_images/8494967-5a7148c8ba90dd20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![一致性hash算法示意图.png](/image/redis/10-3一致性hash.webp)
 
 #### (4)一致性哈希(自动缓存迁移)+虚拟节点(自动负载均衡)  
 为了解决上面的问题，在一致性哈希的基础上增加了虚拟节点方案来处理。  
 **原理** ：给每个master都做了一部分的虚拟节点，这部分虚拟节点也分布在这个圆环上面，那么在每个区间内，大量的数据就会均匀的分布在不同节点上。  
-![一致性哈希+虚拟节点示意图.png](https://upload-images.jianshu.io/upload_images/8494967-9c518ece64a22cbb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![一致性哈希+虚拟节点示意图.png](/image/redis/10-4虚拟节点hash.webp)
 
 #### (5)hash slot算法
 **原理** ：①redis cluster有固定的16384个hash slot，每个key计算CRC16值，然后多
@@ -50,8 +50,8 @@ redis cluster是redis提供的集群模式。
 ③增加一个master，就讲其他master的hash slot移动一部分给新加入的master。  
 ④减少一个master，就将他的hash slot移动到其他master上面去。  
 ⑤移动hash slot的成本是非常低的。   
-⑥客户端的api是可以指定hash tag来让数据走同一个hash slot的。
-![hash slot算法 示意图.png](https://upload-images.jianshu.io/upload_images/8494967-8ebc31c80090c899.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+⑥客户端的api是可以指定hash tag来让数据走同一个hash slot的。  
+![hash slot算法 示意图.png](/image/redis/10-5hashslot.webp)
 
 ### 4.redis cluster的核心原理   
 #### (1)节点间的内部通信机制
@@ -62,13 +62,13 @@ redis cluster是redis提供的集群模式。
 ②维护集群的元数据的两种方式对比   
 A.集中式  
 **优点** ：元数据的更新和读取，时效性非常好，一旦元数据出现了变更，立即就更新到集中式的存储中。  
-**缺点** ：所有的元数据的更新压力全部集中在一个地方，可能导致元数据的存储有压力。
-![集中式 示意图.png](https://upload-images.jianshu.io/upload_images/8494967-725f1e372227af06.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+**缺点** ：所有的元数据的更新压力全部集中在一个地方，可能导致元数据的存储有压力。  
+![集中式 示意图.png](/image/redis/10-6集中式.webp)
 
 B.gossip  
 **优点** ：元数据的更新比较分散，不是集中在同一个地方，更新请求会陆陆续续到达所有节点上去更新，有一定的延时，降低了压力。   
 **缺点** ：元数据更新有延时，可能会导致集群的一些操作会有一些滞后。  
-![gossip示意图.png](https://upload-images.jianshu.io/upload_images/8494967-96a2ca2d1cf899d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![gossip示意图.png](/image/redis/10-7gossip.webp)
 
 ③10000端口   
 每个节点都有一个专门用于节点间通信的端口号，就是自己提供服务的端口号+10000。每个节点每隔一段时间都会往另外几个节点发送ping消息，同时其他节点接收到ping之后会返回pong消息。
@@ -139,7 +139,7 @@ A：如果hash slot正在进行迁移，那么会返回ask重定向给jedis，
 B：jedis接收到ask重定向之后，会重新定位到目标节点去执行。  
 C：但是因为ask发生在hash slot迁移过程中，所以收到ask是不会更新hash slot本地缓存。   
 D：已经可以确定说hash slot已经迁移完了，moved是会更新本地hash slot到node的映射缓存的。  
- 
+
 #### (3)高可用与主备切换原理
 redis cluster的高可用原理，几乎和哨兵时类似的。   
 **1.判断节点宕机**   

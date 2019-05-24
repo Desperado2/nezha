@@ -3,15 +3,15 @@ RabbitMQ基于主从模式实现高可用。RabbitMQ有三种模式：单机模�
 （1）单机模式：
 单机模式就是demo级别的，生产中不会有人使用。
 （2）普通集群模式
-普通集群模式就是在多台机器上启动多个rabbitmq实例，每个机器启动一个。但是创建的queue只会放在一个rabbitmq实例上面，但是其他的实例都同步了这个queue的元数据。在你消费的时候，如果连接到了另一个实例，他会从拥有queue的那个实例获取消息然后再返回给你。
-![普通集群模式示意图.png](https://upload-images.jianshu.io/upload_images/8494967-4832d2e63865764d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+普通集群模式就是在多台机器上启动多个rabbitmq实例，每个机器启动一个。但是创建的queue只会放在一个rabbitmq实例上面，但是其他的实例都同步了这个queue的元数据。在你消费的时候，如果连接到了另一个实例，他会从拥有queue的那个实例获取消息然后再返回给你。   
+![普通集群模式示意图.png](/image/mq/2-1普通集群示意图.webp)
 这种方式并没有做到所谓消息的高可用，就是个普通的集群，这样还会导致要么消费者每次随机连接一个实例然后拉取数据，这样的话在实例之间会产生网络传输，增加系统开销，要么固定连接那个queue所在的实例消费，这样会导致单实例的性能瓶颈。
 
 而且如果那个方queue的实例宕机了，会导致接下来其他实例都无法拉取数据；如果没有开启消息的持久化会丢失消息；就算开启了消息的持久化，消息不一定会丢，但是也要等这个实例恢复了，才可以继续拉取数据。
 所以这个并没有提供高可用，这种方案只是提高了吞吐量，也就是让集群中多个节点来服务某个queue的读写操作。
 （3）镜像集群模式
-这种模式，才是rabbitmq提供是真正的高可用模式，跟普通集群不一样的是，你创建的queue，无论元数据还是queue里面是消息数据都存在多个实例当中，然后每次写消息到queue的时候，都会自动把消息到多个queue里进行消息同步。
-![镜像集群模式示意图.png](https://upload-images.jianshu.io/upload_images/8494967-3a4af86b205cebcf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+这种模式，才是rabbitmq提供是真正的高可用模式，跟普通集群不一样的是，你创建的queue，无论元数据还是queue里面是消息数据都存在多个实例当中，然后每次写消息到queue的时候，都会自动把消息到多个queue里进行消息同步。   
+![镜像集群模式示意图.png](/image/mq/2-2镜像集群示意图.webp)
 这种模式的好处在于，任何一台机器宕机了，其他的机器还可以使用。
 **坏处在于：**1、性能消耗太大，所有机器都要进行消息的同步，导致网络压力和消耗很大。2、没有扩展性可言，如果有一个queue负载很重，就算加了机器，新增的机器还是包含了这个queue的所有数据，并没有办法扩展queue。
 **如何开启镜像集群模式：**在控制台新增一个镜像集群模式的策略，指定的时候可以要求数据同步到所有节点，也可以要求同步到指定节点，然后在创建queue的时候，应用这个策略，就会自动将数据同步到其他的节点上面去了。
@@ -24,10 +24,9 @@ kafka在0.8以前是没有HA机制的，也就是说任何一个broker宕机了�
 
 kafka在0.8之后，提过了HA机制，也就是replica副本机制。每个partition的数据都会同步到其他机器上，形成自己的replica副本。然后所有的replica副本会选举一个leader出来，那么生产者消费者都和这个leader打交道，其他的replica就是follower。写的时候，leader会把数据同步到所有follower上面去，读的时候直接从leader上面读取即可。
 **为什么只能读写leader：**因为要是你可以随意去读写每个follower，那么就要关心数据一致性问题，系统复杂度太高，容易出问题。kafka会均匀度讲一个partition的所有数据replica分布在不同的机器上，这样就可以提高容错性。
-这样就是高可用了，因为如果某个broker宕机 了，没事儿，那个broker的partition在其他机器上有副本，如果这上面有某个partition的leader，那么此时会重新选举出一个现代leader出来，继续读写这个新的leader即可。
-![kafka高可用架构示意图.png](https://upload-images.jianshu.io/upload_images/8494967-b6ad7e86006cc8e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+这样就是高可用了，因为如果某个broker宕机 了，没事儿，那个broker的partition在其他机器上有副本，如果这上面有某个partition的leader，那么此时会重新选举出一个现代leader出来，继续读写这个新的leader即可。   
+![kafka高可用架构示意图.png](/image/mq/2-3kafka高可用.webp)
 **写消息：** 写数据的时候，生产者就写leader，然后leader将数据落到磁盘上之后，接着其他follower自己主动从leader来pull数据。一旦所有follower同步好了数据，就会发送ack个leader，leader收到了所有的follower的ack之后，就会返回写成功的消息给消息生产者。（这只是一种模式，可以调整）。
 **读数据:**消费数据的时候，只会从leader进行消费。但是只有一个消息已经被所有follower都同步成功返回ack的时候，这个消息才会被消费者读到。
 
-上一篇《[消息队列的用途、优缺点、技术选型](https://www.jianshu.com/p/fdd94be6037a)》
-下一篇《[如何保证消息不重复消费](https://www.jianshu.com/p/172295e2e978)》
+

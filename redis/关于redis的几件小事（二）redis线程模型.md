@@ -43,7 +43,7 @@ memcached没有原生的集群模式，需要依靠客户端来实现集群中�
 如果是客户端要连接redis，那么会为socket关联连接应答处理器。  
 如果是客户端要写数据到redis，那么会为socket关联命令请求处理器。  
 如果是客户端要从redis读数据，那么会为socket关联命令回复处理器。  
-![redis内存模式简单示意图.png](https://upload-images.jianshu.io/upload_images/8494967-c8f6145377b56cc0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![redis内存模式简单示意图.png](/image/redis/2-1内存模式.webp)
 
 （4）客户端与redis通信的一次流程  
 ①在redis启动初始化的时候，redis会将连接应答处理器跟AE_READABLE事件关联起来，接着如果一个客户端跟redis发起连接，此时redis会产生一个AE_READABLE事件，然后由连接应答处理器来处理跟客户端建立连接，创建客户端响应的socket，同时将这个socket的AE_READABLE事件跟命令请求处理器关联起来。  
@@ -52,8 +52,8 @@ memcached没有原生的集群模式，需要依靠客户端来实现集群中�
 
 ③接着redis这边准备好了给客户端的响应数据之后，就会将socket的AE_WRITABLE事件跟命令回复处理器关联起来，当客户端这边准备好读取相应数据时，就会在socket上产生一个AE_WRITABLE事件，会由相应的命令回复处理器来处理，就是将准备好的响应数据写入socket，供客户端读取。  
 
-④命令回复处理器写完之后，就会删除这个socket的AE_WRITABLE事件和命令回复处理器的关联关系。
-![一次通信过程.png](https://upload-images.jianshu.io/upload_images/8494967-f0c7d97ed7247ccf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+④命令回复处理器写完之后，就会删除这个socket的AE_WRITABLE事件和命令回复处理器的关联关系。  
+![一次通信过程.png](/image/redis/2-2一次通信.webp)
 
 ### 3.为什么单线程redis还可以支撑高并发？  
 （1）纯内存操作。  

@@ -13,8 +13,8 @@
 
 ⑤这种做法相当于临时将queue资源和consumer资源扩大10倍，以正常速度的10倍来消费消息。
 
-⑥等快速消费完了之后，恢复原来的部署架构，重新用原来的consumer机器来消费消息。
-![kafka的示意图.png](https://upload-images.jianshu.io/upload_images/8494967-353cf72e4bb84a66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+⑥等快速消费完了之后，恢复原来的部署架构，重新用原来的consumer机器来消费消息。  
+![kafka的示意图.png](/image/mq/6-1kafka示意图.webp)
 
 ### 2.消息设置了过期时间，过期就丢了怎么办
 假设你用的是rabbitmq，rabbitmq是可以设置过期时间的，就是TTL，如果消息在queue中积压超过一定的时间就会被rabbitmq给清理掉，这个数据就没了。那这就是第二个坑了。这就不是说数据会大量积压在mq里，而是大量的数据会直接搞丢。
@@ -30,6 +30,3 @@
 
 首先，临时写个程序，连接到mq里面消费数据，收到消息之后直接将其丢弃，快速消费掉积压的消息，降低MQ的压力，然后走第二种方案，在晚上夜深人静时去手动查询重导丢失的这部分数据。
 
-上一篇《[如何保证消息按顺序执行](https://www.jianshu.com/p/02fdcb9e8784)》
-
-下一篇《[如果让你设计一个MQ，你怎么设计](https://www.jianshu.com/p/08ef2219411f)》

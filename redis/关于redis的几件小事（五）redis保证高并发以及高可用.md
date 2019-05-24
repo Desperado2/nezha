@@ -16,8 +16,8 @@ redis不能支撑高并发的瓶颈主要是单机问题，也就是说只有一
 ### 3.如何支撑更高的并发  
 单机的redis不可能支撑太高的并发量，要想支持更高的并发可以进行 **读写分离** 。对于缓存来说，一般都是支撑读高并发的，写的请求是比较少的，因此可以基于主从架构进行读写分离。  
 
-配置一个master(主)机器用来写入数据，配置多个slave(从)来进行数据的读取，在master接收到数据之后将数据同步到slave上面即可，这样slave可以配置多台机器，就可以提高整体的并发量。
-![基于主从的读写分离简单示意图.png](https://upload-images.jianshu.io/upload_images/8494967-55df07f11e35bbe9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+配置一个master(主)机器用来写入数据，配置多个slave(从)来进行数据的读取，在master接收到数据之后将数据同步到slave上面即可，这样slave可以配置多台机器，就可以提高整体的并发量。  
+![基于主从的读写分离简单示意图.png](/image/redis/5-1主从分离.webp)
 
 
 
@@ -94,7 +94,7 @@ redis通过info server 可以查看到master run id。
 **用途**：slave根据其来定位唯一的master。  
 **为什么不用host+ip** ： 因为使用host+ip来定位master是不靠谱的，如果master node重启或者数据出现了变化，那么slave应该根据不同的master run id进行区分，run id不同就需要做一次全量复制。  
 如果需要不更改run id重启redis，可以使用**redis-cli debug reload** 命令。
- 
+
 #### 3.全量复制流程与机制  
 ①master执行bgsave，在本地生成一份RDB文件。  
 
@@ -129,7 +129,7 @@ master每次接收到写命令之后，现在内部写入数据，然后异步�
 #### 1.什么是99.99%高可用?
 >**高可用性**（英语：high availability，缩写为 HA），IT术语，指系统无中断地执行其功能的能力，代表系统的可用性程度。是进行系统设计时的准则之一。高可用性系统与构成该系统的各个组件相比可以更长时间运行。
 高可用性通常通过提高系统的容错能力来实现。定义一个系统怎样才算具有高可用性往往需要根据每一个案例的具体情况来具体分析。
-其度量方式，是根据系统损害、无法使用的时间，以及由无法运作恢复到可运作状况的时间，与系统总运作时间的比较。计算公式为: ![image.png](https://upload-images.jianshu.io/upload_images/8494967-2f1ef7cf38a39ee1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+其度量方式，是根据系统损害、无法使用的时间，以及由无法运作恢复到可运作状况的时间，与系统总运作时间的比较。计算公式为: ![image.png](/image/redis/5-4计算公式.webp)
 A（可用性），MTBF(平均故障间隔)，MDT(平均修复时间)
 在线系统和执行关键任务的系统通常要求其可用性要达到5个9标准(99.999%)。
 
@@ -174,7 +174,7 @@ redis不可以包含了单实例的不可用，主从架构的不可用。
 
 #### 3.为什么哨兵集群部署2个节点无法正常工作？
 哨兵集群必须部署2个以上的节点。如果集群仅仅部署了2个哨兵实例，那么quorum=1(执行故障转移需要同意的哨兵个数)。  
-![2节点示意图.png](https://upload-images.jianshu.io/upload_images/8494967-60d490b485013158.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![2节点示意图.png](/image/redis/5-2两个哨兵示意图.webp)
 
 如图，如果这时候master1宕机了，哨兵1和哨兵2中只要有一个认为master1宕机了就可以进行故障转移，同时哨兵1和哨兵2会选举出一个哨兵来执行故障转移。  
 同时这个时候需要majority(也就是所有集群中超过一半哨兵的数量)，2个哨兵那么majority就是2，也就说需要至少2个哨兵还运行着，才可以进行故障转移。  
@@ -182,7 +182,7 @@ redis不可以包含了单实例的不可用，主从架构的不可用。
 
 #### 4.经典的3节点哨兵集群
 
-![三节点示意图.png](https://upload-images.jianshu.io/upload_images/8494967-e6af39945aeccfc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![三节点示意图.png](/image/redis/5-3三个哨兵.webp)
 
 
 Configuration: quorum = 2，majority=2

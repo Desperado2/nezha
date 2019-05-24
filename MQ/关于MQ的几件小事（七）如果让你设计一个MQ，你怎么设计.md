@@ -14,10 +14,5 @@
 
 
 如果你还不清楚，请参考前面几篇
-《[消息队列的用途、优缺点、技术选型](https://www.jianshu.com/p/fdd94be6037a)》
-《[如何保证消息队列的高可用](https://www.jianshu.com/p/ab64681beb17)》
-《[如何保证消息不重复消费](https://www.jianshu.com/p/172295e2e978)》
-《[如何防止数据队列数据丢失](https://www.jianshu.com/p/8ed16edc73e4)》
-《[如何保证消息按顺序执行](https://www.jianshu.com/p/02fdcb9e8784)》
-《[消息积压在消息队列里怎么办](https://www.jianshu.com/p/07b2169bef49)》
+
 

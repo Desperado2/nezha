@@ -8,8 +8,8 @@
 **B:rabbitmq自己丢了数据**
 如果没有开启rabbitmq的持久化，那么rabbitmq一旦重启，那么数据就丢了。所依必须开启持久化将消息持久化到磁盘，这样就算rabbitmq挂了，恢复之后会自动读取之前存储的数据，一般数据不会丢失。除非极其罕见的情况，rabbitmq还没来得及持久化自己就挂了，这样可能导致一部分数据丢失。
 **C：消费端弄丢了数据**
-主要是因为消费者消费时，刚消费到，还没有处理，结果消费者就挂了，这样你重启之后，rabbitmq就认为你已经消费过了，然后就丢了数据。
-![rabbitmq数据丢失示意图.png](https://upload-images.jianshu.io/upload_images/8494967-a279a2bf41cfc412.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+主要是因为消费者消费时，刚消费到，还没有处理，结果消费者就挂了，这样你重启之后，rabbitmq就认为你已经消费过了，然后就丢了数据。   
+![rabbitmq数据丢失示意图.png](/image/mq/4-1rabbitmq丢失消息.webp)
 （2）kafka
 **A:生产者弄丢了数据**
 生产者没有设置相应的策略，发送过程中丢失数据。
@@ -18,7 +18,7 @@
 **C:消费者弄丢了数据**
 消费者消费到了这个数据，然后消费之自动提交了offset，让kafka知道你已经消费了这个消息，当你准备处理这个消息时，自己挂掉了，那么这条消息就丢了。
 
-![kafka丢失数据示意图.png](https://upload-images.jianshu.io/upload_images/8494967-1c745e1dbb3b9143.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![kafka丢失数据示意图.png](/image/mq/4-2kafka丢失消息.webp)
 
 ###3.如何防止消息丢失
 （1）rabbitmq
@@ -77,5 +77,4 @@
 **C：生产者弄丢了数据**
 如果按照上面设置了ack=all，则一定不会丢失数据，要求是，你的leader接收到消息，所有的follower都同步到了消息之后，才认为本次写成功了。如果没满足这个条件，生产者会自动不断的重试，重试无限次。
 
-上一篇《[如何保证消息不重复消费](https://www.jianshu.com/p/172295e2e978)》
-下一篇《[如何保证消息按顺序执行](https://www.jianshu.com/p/02fdcb9e8784)》
+
