@@ -9,14 +9,11 @@
 		* [(二)什么是反射](Java/jvm/（二）什么是反射.md)
 		* [(三)什么是ClassLoader](Java/jvm/（三）什么是ClassLoader.md)
 		* [(四)JAVA内存模型](Java/jvm/（四）java内存模型.md)
-		
-	
 	* [关于GC](Java/gc)
 		* [(一)垃圾回收算法](Java/jvm/（一）垃圾回收算法.md)
 		* [(二)新生代垃圾收集器](Java/jvm/（二）新生代垃圾收集器.md)
 		* [(三)老年代垃圾收集器](Java/jvm/（三）老年代垃圾收集器.md)
-	
-	* [关于线程与并发](mysql/thread)
+	* [关于线程与并发](Java/thread)
 		* [(一)线程与进程](Java/jvm/（一）线程与进程.md)
 		* [(二)线程的创建方式](Java/jvm/（二）线程的创建方式.md)
 		* [(三)线程的函数操作](Java/jvm/（三）线程的函数操作.md)
@@ -25,8 +22,6 @@
 		* [(六)JMM内存可见性](Java/jvm/（六）JMM内存可见性.md)
 		* [(七)CAS](Java/jvm/（七）关于CAS.md)
 		* [(八)Java线程池](Java/jvm/（八）Java线程池.md)
-		
-		
 	* [关于常用类库](Java/utils)
 	
 		* [(一)Java异常体系](Java/utils/（一）Java异常体系.md)
