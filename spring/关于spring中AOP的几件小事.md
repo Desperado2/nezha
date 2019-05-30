@@ -8,32 +8,53 @@
   
 #### 1.AOP术语
 - 切面(Aspect)：横切关注点(跨越应用程序多个模块 的功能)被模块化的特殊对象。     
+
 - 通知(Advice)：切面必须要完成的工作。     
+
 - 目标(Target)：被通知的对象。     
+
 - 代理(Proxy)：向目标对象应用通知之后创建的对象。     
+
 - 连接点(Joinpoint)：程序执行的某个特定位置：如某个方法调用前、调用后、方法抛出异常后等。连接点由两个信息确定：方法表示的程序执行点；相对点表示的方位。     
+
 - 切点(pointcut)：每个类都拥有多个连接点。AOP通过切点定位到特定的连接点。类比：连接点相当于数据库中的记录，切点相当于查询条件。切点和连接点不是一对一的关系，一个切点匹配多个连接点，切点通过org.springframework.aop.Pointcut接口进行描述，它使用类和方法作为连接点的查询条件。   
+
+  
+
 #### 2.AspectJ
 Java社区里最完善最流行的AOP框架。     
 在Spring2.0以上版本中，可以使用基于AspectJ注解或基于XML配置的AOP。    
 
+
+
 #### 3.在Spring中启用AspectJ注解支持    
 - 要在Spring应用中使用AspectJ注解，必须早classpath下包含AspectJ类库
   ;aoplliance.jar、aspectj.weaver.jar和spring-aspects.jar.      
+
 - 将aop Schema添加到<beans>根元素中。     
+
 - 要在Spring IOC容器中启用AspectJ注解支持，只要在Bean配置文件中定义一个空的XML元素<aop:aspectj-autoproxy>         
-- 当Spring IOC容器侦测到Bean配置文件中的<aop:aspectj-autoproxy>元素时，会自动为与AspectJ切面匹配的Bean创建代理。    
-- 
+
+- 当Spring IOC容器侦测到Bean配置文件中的<aop:aspectj-autoproxy>元素时，会自动为与AspectJ切面匹配的Bean创建代理。           
+
+  ​       
+
 #### 4.用AspectJ注解声明切面
 - 要在Spring中声明AspectJ切面，只需要在IOC容器中将切面声明为Bean实例。当在SpringIOC容器中初始化AspectJ切面之后，SpringIOC容器就会为那些与AspectJ切面相匹配的Bean创建管理。      
 - 在AspectJ注解中，切面只是一个带有@Aspect注解的Java类。      
 - 通知是标注有某种注解的简单的Java方法。      
 - AspectJ支持5种类型的通知注解：     
     - @Before:前置通知，在方法执行之前执行。   
+
     - @After:后置通知，在方法执行之后执行。    
+
     - @AfterRunning:返回通知，在方法返回结果之后执行。     
+
     - @AfterThrowing:异常通知，在方法抛出异常之后。     
-    - @Around:环绕通知，围绕着方法执行。
+
+    - @Around:环绕通知，围绕着方法执行。   
+
+      
 
 #### 5.前置通知   
 - 在方法执行之前执行的通知。      
@@ -50,19 +71,31 @@ public class CalculatorLoggingAspect{
 }
 ```
 - @Aspect注解标识这个类是一个切面。     
+
 - @Before注解标识这个方法是个前置通知。    
+
 - 切点表达式表示执行 ArithmeticCalculator接口的add()方法。    
+
 - \* 代表匹配任意修饰符及任意返回值。    
-- 参数列表中的  . .  表示匹配任意数量的参数。          
-- 
+
+- 参数列表中的  . .  表示匹配任意数量的参数。       
+
+  ​    
+
 #### 6.利用方法签名编写AspectJ切入点表达式。      
 最典型的的切入点表达式是根据方法的签名来匹配各种方法的。     
 - execution * com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator中声明的所有方法，第一个 * 代表任意修饰符以及任意返回值；第二个 * 代表任意方法； .. 匹配任意数量的参数。若目标类与接口与该切面在同一个包中，可以省略包名。   
+
 - execution public * com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator接口的所有公共方法。    
+
 - execution public double com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator接口的所有返回double类型数值的公共方法。    
+
 - execution public double  com.desperado.spring.ArithmeticCalculator.*(double,..):匹配ArithmeticCalculator接口的所有第一个参数类型为double类型的公共方法。     
-- execution public double  com.desperado.spring.ArithmeticCalculator.*(double,double):匹配ArithmeticCalculator接口的所有参数类型为double,double的公共方法。    
-- 
+
+- execution public double  com.desperado.spring.ArithmeticCalculator.*(double,double):匹配ArithmeticCalculator接口的所有参数类型为double,double的公共方法。      
+
+  
+
 #### 7.合并切入点表达式    
 在AspectJ中，切入点表达式可以通过操作符&&，||，!结合起来。    
 ```java
@@ -74,7 +107,9 @@ public void logBefore(JoinPoint joinPoint){
     log.info("");
 }
 ```
-- 可以在通知方法中声明一个类型为JoinPoint的参数，然后就能访问连接细节，如方法名称和参数。     
+- 可以在通知方法中声明一个类型为JoinPoint的参数，然后就能访问连接细节，如方法名称和参数。   
+
+  ​     
 #### 8.后置通知  
 后置通知是在连接点完成之后执行的，即连接点返回结果或抛出异常的时候，下面的后置通知记录了方法的终止。    
 - 一个切面可以包括一个或多个通知。    
@@ -89,6 +124,7 @@ public class CalculatorLoggingAspect{
     }
 }
 ```
+
 #### 9.返回通知
 无论连接点是正常返回还是抛出异常，后置通知都会执行，如果只想在连接点返回的时候记录日志，应使用返回通知大厅后置通知。   
 ```java
@@ -158,7 +194,7 @@ public class Aspect1{}
 public class Aspect2{}
 ```
 
-#### 13.重用切入点定义
+#### 13.重用切入点定义     
 - 在编写AspectJ切面时，可以直接再通知注解中书写切入点表达式，但同一个切点表达式可能会在多个通知中重复出现。    
 - 在AspectJ切面中，可以通过@Pointcut注解将一个切入点声明为简单的方法，切入点的方法体通常是空的，因为将切入点定于与应用程序逻辑混在一起是不合理的。    
 - 切入点方法的方法控制符同时也控制这这个切入点的可见性。如果切入点要在多个切面中使用，最好将它们集中在一个公共的类中。在这种情况下，它们必须被声明为public。在引入这个切入点时，必须将类名也包括在内，如果累没有与这个切面放在同一个包中，还必须包含包名。   
