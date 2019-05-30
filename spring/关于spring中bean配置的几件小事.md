@@ -95,7 +95,7 @@ id:Bean的名称。
 - 组成应用程序的Bean经常需要相互协作以完成应用程序的功能，要使Bean能够相互访问，就必须在Bean配置文件中指定对Bean的引用。   
 - 在Bean的配置文件中，可以通过<ref>元素或ref属性为Bean的属性或构造器参数指定对Bean的引用。   
 - 也可以在属性或构造器里包含Bean的声明，这样的Bean成为内部Bean。    
-```
+```xml
 <bean id="service" class="com.desperado.helloworld.Service"></bean> 
 
 <bean id="action" class="com.desperado.helloworld.Action">
