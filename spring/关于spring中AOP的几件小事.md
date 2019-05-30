@@ -82,9 +82,9 @@ public class CalculatorLoggingAspect{
 
 #### 6.利用方法签名编写AspectJ切入点表达式。      
 最典型的的切入点表达式是根据方法的签名来匹配各种方法的。     
-- execution * com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator中声明的所有方法，第一个 * 代表任意修饰符以及任意返回值；第二个 * 代表任意方法； .. 匹配任意数量的参数。若目标类与接口与该切面在同一个包中，可以省略包名。   
+- execution \* com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator中声明的所有方法，第一个 * 代表任意修饰符以及任意返回值；第二个 * 代表任意方法； .. 匹配任意数量的参数。若目标类与接口与该切面在同一个包中，可以省略包名。   
 
-- execution public * com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator接口的所有公共方法。    
+- execution public \* com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator接口的所有公共方法。    
 
 - execution public double com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator接口的所有返回double类型数值的公共方法。    
 
@@ -225,7 +225,9 @@ public class Aspect2{}
 #### 14.引入通知
 - 引入通知是一种特殊的通知类型，它通过为接口提供实现类，允许对象动态地实现接口，就像对象已经在运行时扩展了实现类一样。     
 
-   ![image.png](/image/spring/2-1.png)
+
+![image.png](/image/spring/2-1.png)
+
 
 - 引入通知可以使用两个实现类MaxCalculatorImpl和MinCalculatorImpl，让ArithmeticCalculatorImpl动态地实现MaxCalculator和MinCalculator接口。而这与从MaxCalculatorImpl和MinCalculatorImpl中实现多继承的效果相同，但却不需要修改ArithmeticCalculatorImpl的源代码。     
 - 引入通知也必须在切面中声明。    
@@ -276,7 +278,8 @@ public class CalculatorLoggingAspect implements Ordered {
 <aop:config>
     <aop:pointcut id="testOperation" expression="execution(* com.desperado.bean.Arithmetic*.*(..))"/>
 </aop:config>
-```
+```    
+
 **基于XML-----声明通知**     
 - 在aop Schema中，每种通知类型都对应一个特定的XML元素。    
 - 通知元素需要使用<pointcut-ref>来引入切入点，或用<pointcut>直接嵌入切入点表达式。method属性指定切面类中通知方法的名称。    

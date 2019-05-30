@@ -241,11 +241,11 @@ Spring2.5之后：可通过<context:property-placeholder>元素简化：
 ```xml
 <property name="suffix" value="#{sequenceGenerator2.toString()}"/>       
 ```
-方法的链式操作      
+- 方法的链式操作      
 ```xml
 <property name="count" value="#{sequenceGenerator2.toString().toUpperCase()}"/>       
 ```
--调用静态方法或静态属性:通过T()调用一个类的静态方法，它将返回一个Class Object，然后再调用相应的方法或属性。       
+- 调用静态方法或静态属性:通过T()调用一个类的静态方法，它将返回一个Class Object，然后再调用相应的方法或属性。       
 ```xml
 <property name="initValue" value="#{T(java.lang.Math).PI}"></property>
 ```
@@ -326,7 +326,8 @@ SpringIOC容器对Bean的生命周期进行管理的过程：
    - <context:include-filter>子节点表示要包含的目标类。    
     - <context:exclude-filter>子节点表示要排除在外的目标类。      
     - <context:component-scan>下面可以拥有若干个<context:include-filter>和<context:exclude-filter>子节点。     
- ```xml
+ 
+```xml
  <context:component-scan base-package="com.desperado.helloworld" 
                          resource-pattern="autowire/*.class />
  ```

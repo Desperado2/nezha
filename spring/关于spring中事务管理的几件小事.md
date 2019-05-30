@@ -67,8 +67,9 @@
   在@Transactional注解中的属性中进行配置   
 ```java
 @Transactional(propagation=Propagation.REQUIRES_NEW)
-```
-在xml中可以在<tx:method>中进行配置    
+```    
+
+- 在xml中可以在<tx:method>中进行配置    
 
 ```xml
 <tx:advice id="bookShopTxAdvice" transaction-manager="transactionManager">
@@ -112,7 +113,7 @@
                 noRollbackFor=ArithmeticException.class)  
 public void purchase(String isbn,String username){}
 ```
-- 在Spring 2.x事务通知中，可以在<tx:method》原始种指定回滚规则，如果有不止一种异常，用逗号隔开
+- 在Spring 2.x事务通知中，可以在<tx:method》原始种指定回滚规则，如果有不止一种异常，用逗号隔开    
  ```xml
 <tx:advice id="bookShopTxAdvice" transaction-manager="transactionManager">
     <tx:attributes>
@@ -137,7 +138,8 @@ public void purchase(String isbn,String username){}
                 noRollbackFor=ArithmeticException.class,
                 readOnly=true,tomeout=30)  
 public void purchase(String isbn,String username){}
-```
+```    
+
 -在Spring 2.x事务通知中，超时和只读属性可以在<tx:method>元素中进行指定
 ```xml
 <tx:advice id="bookShopTxAdvice" transaction-manager="transactionManager">
