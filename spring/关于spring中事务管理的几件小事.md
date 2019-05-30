@@ -11,6 +11,7 @@
 - JtaTransactionManager:在JavaEES应用服务器上用JTA进行事务管理。    
 - HibernateTransactionManager：用Hibernate框架存取数据库。   
 - 事务管理器以普通的Bean形式声明在SpringIOC容器中。     
+
 #### 3.用事务通知声明式地管理事务
 - 事务管理是一种横切关注点。   
 - 为了在Spring 2.x中启用声明式事务管理，可以通过tx Schema中定义的<tx:advice>元素声明事务通知。为此必须事先将这个Schema定义添加到<beans>根元素中去。    
@@ -28,6 +29,7 @@
         <aop:advisor advice-ref="bookShopTxAdvice" pointcut-ref="bookShopOperation"/>
     </aop:config>
 ```
+
 #### 4.用@Transactional注解声明式的管理事务   
 - 除了在带有切入点，通知和增强器的Bean配置文件中声明事务外，Spring还允许简单地用@Transactional注解来标注事务方法，。    
 - 为了将方法定义为支持事务处理的，可以为方法添加@Transactional注解。根据Spring AOP基于代理机制，只能标注公有方法。    
@@ -47,6 +49,7 @@
     
     <tx:annotation-driven/>
 ```
+
 #### 5.事务传播属性
 - 当事务方法被另一个事务方法调用时，必须指定事务应该如何传播，例如：方法可能继续在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行。    
 - 事务的传播行为可以由传输属性指定，Spring定义了7种传播行为。 
@@ -74,6 +77,7 @@
 </tx:advice>
     
 ```
+
 #### 6.设置隔离事务属性
 - 用@Transactional注解声明式地管理事务时可以在@Transactional的isolation属性中设置隔离级别
 ```java
@@ -89,6 +93,7 @@
     </tx:attributes>
 </tx:advice>
 ```
+
 #### 7.设置回滚事务属性
 - 默认情况下只有未检查异常(RuntimeException和Error类型的异常)会导致事务回滚，二受检查异常不会。     
 - 事务的回滚规则可以通过@Transactional注解的rollbackFor和noRollbackFor属性来定义，这两个属性被声明为Class[]类型的，因此可以为这两个属性指定多个异常类。   
@@ -112,6 +117,7 @@ public void purchase(String isbn,String username){}
     </tx:attributes>
 </tx:advice>
  ```
+ 
 #### 8.超时和只读属性
 - 由于事务可以在行和表上获得锁，因此长事务会占用资源，并对整体性能产生影响。   
 - 如果一个事务只读取数据但不做修改，数据库引擎可以对这个事务进行优化。   

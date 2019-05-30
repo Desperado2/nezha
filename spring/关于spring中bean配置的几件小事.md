@@ -25,7 +25,7 @@ IOC的另一种表达方式：即组件的一些预先定义好的方式(例如�
 ### 二.spring配置bean     
 #### 1.在spring的IOC容器里面配置Bean。        
 在xml文件中通过bean节点来配置bean     
-```
+```xml
 <bean id="helloWorld" 
          class="com.desperado.helloworld.HelloWorld >
 </bean>
@@ -60,7 +60,7 @@ id:Bean的名称。
   属性注入即通过setter方法注入Bean的属性值或依赖的对象。     
   属性注入使用<property>元素，使用name属性指定Bean的属性名称，value属性或<value>子节点指定属性值。       
   属性注入是实际应用中最常用的注入方式。      
-```
+```xml
 <bean id="helloWorld"   class="com.desperado.helloworld.HelloWorld">
       <property name="userName" value="desperado"></property>
 </bean>
@@ -69,7 +69,7 @@ id:Bean的名称。
   通过构造方法注入Bean的属性值或依赖的对象，它保证了Bean实例在实例化后就可以使用。       
   构造器注入在<constructor-arg>元素里声明属性，<constructor-arg>中没有name属性。      
   * 按索引匹配入参       
-```
+```xml
 <bean id="car" class ="com.desperado.helloworld.Car">
       <constructor-arg value="奥迪" index="0"></constructor-arg>  
       <constructor-arg value="奔驰" index="1"></constructor-arg>  
@@ -77,7 +77,7 @@ id:Bean的名称。
 </bean>
 ```
   * 按匹配参数注入
-```
+```xml
 <bean id="car" class ="com.desperado.helloworld.Car">
       <constructor-arg value="奥迪" type="java.lang.String"></constructor-arg>  
       <constructor-arg value="奔驰" type="java.lang.String"></constructor-arg>  
@@ -89,7 +89,7 @@ id:Bean的名称。
 - 注入属性值细节   
   * 字面值：可用字符串表示的值，可以通过<value>元素标签或value属性进行注入。     
   * 基本数据类型及其封装类、String等类型都可以采取字面值的注入。     
-  * 若字面值中包含特殊字符，可以使用<![CDATA[]]把字面值包裹起来。     
+  * 若字面值中包含特殊字符，可以使用<![CDATA[]]>把字面值包裹起来。     
 
 #### 5. 引用其他Bean    
 - 组成应用程序的Bean经常需要相互协作以完成应用程序的功能，要使Bean能够相互访问，就必须在Bean配置文件中指定对Bean的引用。   
@@ -172,7 +172,7 @@ id:Bean的名称。
 
 4.注册PropertyPlaceholderConfigurer       
 Spring2.0的配置方式：      
-```
+```xml
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
       <property name="location" value="classpath:jdbc.properties"></property>
 </bean>
@@ -180,7 +180,7 @@ Spring2.0的配置方式：
 Spring2.5之后：可通过<context:property-placeholder>元素简化：       
 - <beans>中添加context Schema定义     
 - 在配置文件中加入如下配置  
-```
+```xml
 <context:property-placeholder location="classpath:db.properties" />
 ```
 ### 七.SpEL
@@ -204,25 +204,25 @@ Spring2.5之后：可通过<context:property-placeholder>元素简化：
 #### 3.引用Bean、属性和方法      
 - 应用其他对象      
   通过value属性和SpELl配置bean之间的关系      
-```
+```xml
 <property name="prefix" value="#{prefixGenerator}"/>       
 ```
 - 引用其他对象的属性       
   通过value属性和SpELl配置suffix属性值为另一个Bean的suffix属性值       
-```
+```xml
 <property name="suffix" value="#{sequenceGenerator2.suffix}"/>       
 ```
 - 调用其他方法，还可以链式操作      
   通过value属性和SpELl配置suffix属性值为另一个Bean的方法的返回值      
-```
+```xml
 <property name="suffix" value="#{sequenceGenerator2.toString()}"/>       
 ```
 方法的链式操作      
-```
+```xml
 <property name="count" value="#{sequenceGenerator2.toString().toUpperCase()}"/>       
 ```
 -调用静态方法或静态属性:通过T()调用一个类的静态方法，它将返回一个Class Object，然后再调用相应的方法或属性。       
-```
+```xml
 <property name="initValue" value="#{T(java.lang.Math).PI}"></property>
 ```
 
@@ -287,8 +287,9 @@ SpringIOC容器对Bean的生命周期进行管理的过程：
    - <context:include-filter>子节点表示要包含的目标类。    
     - <context:exclude-filter>子节点表示要排除在外的目标类。      
     - <context:component-scan>下面可以拥有若干个<context:include-filter>和<context:exclude-filter>子节点。     
- ```
- <context:component-scan base-package="com.desperado.helloworld" resource-pattern="autowire/*.class />
+ ```xml
+ <context:component-scan base-package="com.desperado.helloworld" 
+                         resource-pattern="autowire/*.class />
  ```
 - <context:include-filter>和<context:exclude-filter>子节点支持多种类型的过滤表达式。     
 
