@@ -64,11 +64,12 @@
 | NEVER         | 当前的方法不应该运行在事务中，如果有运行的事务，就跑出异常   |
 | NESTED        | 如果有事务在运行，当前的方法就应该在这个事务的嵌套事务内运行，否则，就启动一个新的事务，并在它自己的事务内运行 |
 - 事务传播属性的配置
-  在@Transactional注解中的属性中进行配置
+  在@Transactional注解中的属性中进行配置   
 ```java
 @Transactional(propagation=Propagation.REQUIRES_NEW)
 ```
-在xml中可以在<tx:method>中进行配置
+在xml中可以在<tx:method>中进行配置    
+
 ```xml
 <tx:advice id="bookShopTxAdvice" transaction-manager="transactionManager">
     <tx:attributes>
@@ -78,13 +79,17 @@
     
 ```
 
+
 #### 6.设置隔离事务属性
 - 用@Transactional注解声明式地管理事务时可以在@Transactional的isolation属性中设置隔离级别
+
 ```java
 @Transactional(propagation=Propagation.REQUIRES_NEW,isolation=Isolation.READ_COMMITTED)
 
 ```
+
 - 在Spring 2.x事务通知中，可以在<tx:method》元素中指定隔离级别
+
 ```xml
 <tx:advice id="bookShopTxAdvice" transaction-manager="transactionManager">
     <tx:attributes>
@@ -99,6 +104,7 @@
 - 事务的回滚规则可以通过@Transactional注解的rollbackFor和noRollbackFor属性来定义，这两个属性被声明为Class[]类型的，因此可以为这两个属性指定多个异常类。   
       - rollbackFor：遇到时必须进行回滚。    
       - noRollbackFor：一组异常类，遇到时必须不会滚
+ 
 ```java
 @Transactional(propagation=Propagation.REQUIRED_NEW,
                 isolation=Isolation.READ_COMMITTED,

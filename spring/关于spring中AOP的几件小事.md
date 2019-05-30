@@ -18,13 +18,11 @@
 - 连接点(Joinpoint)：程序执行的某个特定位置：如某个方法调用前、调用后、方法抛出异常后等。连接点由两个信息确定：方法表示的程序执行点；相对点表示的方位。     
 
 - 切点(pointcut)：每个类都拥有多个连接点。AOP通过切点定位到特定的连接点。类比：连接点相当于数据库中的记录，切点相当于查询条件。切点和连接点不是一对一的关系，一个切点匹配多个连接点，切点通过org.springframework.aop.Pointcut接口进行描述，它使用类和方法作为连接点的查询条件。   
-
   
 
 #### 2.AspectJ
 Java社区里最完善最流行的AOP框架。     
 在Spring2.0以上版本中，可以使用基于AspectJ注解或基于XML配置的AOP。    
-
 
 
 #### 3.在Spring中启用AspectJ注解支持    
@@ -109,7 +107,8 @@ public void logBefore(JoinPoint joinPoint){
 ```
 - 可以在通知方法中声明一个类型为JoinPoint的参数，然后就能访问连接细节，如方法名称和参数。   
 
-  ​     
+
+  
 #### 8.后置通知  
 后置通知是在连接点完成之后执行的，即连接点返回结果或抛出异常的时候，下面的后置通知记录了方法的终止。    
 - 一个切面可以包括一个或多个通知。    
@@ -140,7 +139,8 @@ public class CalculatorLoggingAspect{
 ```
 - 在返回通知中，只要将returning属性添加到@AfterReturing注解中，就可以访问连接点的返回值。    
 - 必须必须在通知方法的签名中添加一个同名参数，在运行时，Spring AOP会通知这个参数传递返回值。    
-- 原始的切点表达式需要出现在pointcut属性中     
+- 原始的切点表达式需要出现在pointcut属性中    
+ 
 ```java
 @AfterReturning(pointcut="execution(* *.*(..))",returning ="result")
 public void logAfterReturning(JoinPoint joinPoint,Object result){
@@ -184,6 +184,7 @@ public void logAround(proceedingJoinPoint joinPoint) throws Throwable{
 - 切面的优先级可以通过实行Ordered接口或利用@Order注解指定。    
 - 实行Ordered接口，getOrder()方法的返回值越小，优先级越高。    
 - 若使用@Order注解，序号出现在注解中     
+
 ```java
 @Aspect
 @Order(0)
@@ -194,11 +195,13 @@ public class Aspect1{}
 public class Aspect2{}
 ```
 
+
 #### 13.重用切入点定义     
 - 在编写AspectJ切面时，可以直接再通知注解中书写切入点表达式，但同一个切点表达式可能会在多个通知中重复出现。    
 - 在AspectJ切面中，可以通过@Pointcut注解将一个切入点声明为简单的方法，切入点的方法体通常是空的，因为将切入点定于与应用程序逻辑混在一起是不合理的。    
 - 切入点方法的方法控制符同时也控制这这个切入点的可见性。如果切入点要在多个切面中使用，最好将它们集中在一个公共的类中。在这种情况下，它们必须被声明为public。在引入这个切入点时，必须将类名也包括在内，如果累没有与这个切面放在同一个包中，还必须包含包名。   
-- 其他通知可以通过方法名称引入该切入点。     
+- 其他通知可以通过方法名称引入该切入点。 
+    
 ```java
    @Pointcut("execution(* *.*(..))")
     private void loggingOperation(){}
@@ -254,7 +257,8 @@ public class CalculatorLoggingAspect implements Ordered {
 
 - 在Bean配置文件中，所有的Spring AOP配置都必须定义在<aop:config>元素内部。对于每个切面而言，都需要创建一个<aop:aspect>元素来为切面实现引用后端Bean实例。   
 
-- 切面Bean必须有一个标识符，供<aop:aspect>元素引用。    
+- 切面Bean必须有一个标识符，供<aop:aspect>元素引用。   
+ 
 ```xml
 <bean id="aspect1" class="com.desperado.Aspect1"></bean>
 
