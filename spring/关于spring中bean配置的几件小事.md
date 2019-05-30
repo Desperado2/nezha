@@ -154,7 +154,7 @@ id:Bean的名称。
 
 
 ### 四.Bean之间的关系：继承和依赖   
-  
+
 #### 1.继承Bean配置      
 - Spring允许继承Bean的配置，被继承的Bean称为父bean，继承这个父bean的bean称为子bean。      
 - 子Bean从父Bean中继承配置，包括Bean的属性配置。    
@@ -218,11 +218,11 @@ Spring2.5之后：可通过<context:property-placeholder>元素简化：
   
 #### 2.SpEL的字面量      
 - 字面量的表示      
-  - 整数：<property name="count" value="#{5}"/>
-  - 小数：<property name="count" value="#{87.9}"/>    
-  - 科学计数法：<property name="count" value="#{1e4}"/>        
-  - String可以使用单引号或者双引号作为字符串的界定符号：<property name="count" value="#{'chuck'}"/>.     
-  - booean: <property name="count" value="#{false}"/>       
+  - 整数：\<property name="count" value="#{5}"/>
+  - 小数：\<property name="count" value="#{87.9}"/>    
+  - 科学计数法：\<property name="count" value="#{1e4}"/>        
+  - String可以使用单引号或者双引号作为字符串的界定符号：\<property name="count" value="#{'chuck'}"/>.     
+  - booean: \<property name="count" value="#{false}"/>       
 
   
 #### 3.引用Bean、属性和方法      
@@ -326,11 +326,11 @@ SpringIOC容器对Bean的生命周期进行管理的过程：
    - <context:include-filter>子节点表示要包含的目标类。    
     - <context:exclude-filter>子节点表示要排除在外的目标类。      
     - <context:component-scan>下面可以拥有若干个<context:include-filter>和<context:exclude-filter>子节点。     
- 
+
 ```xml
  <context:component-scan base-package="com.desperado.helloworld" 
                          resource-pattern="autowire/*.class />
- ```
+```
 - <context:include-filter>和<context:exclude-filter>子节点支持多种类型的过滤表达式。     
 
 | 类别       | 示例                        | 说明                                                         |
@@ -369,7 +369,7 @@ Spring4.x中可以为子类注入子类对应的泛型类型的常用变量的�
 
 
 
-   
+
 ### 十一.整个多个配置文件
 Spring允许通过<import>将多个配置文件引入到一个文件中，进行配置文件的集成。这样在启动Spring容器时，仅需要指定这个合并好的配置文件就可以。      
 import元素的resource属性支持Spring的标准的路径资源 

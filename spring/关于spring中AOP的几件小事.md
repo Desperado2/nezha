@@ -82,7 +82,7 @@ public class CalculatorLoggingAspect{
 
 #### 6.利用方法签名编写AspectJ切入点表达式。      
 最典型的的切入点表达式是根据方法的签名来匹配各种方法的。     
-- execution \* com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator中声明的所有方法，第一个 * 代表任意修饰符以及任意返回值；第二个 * 代表任意方法； .. 匹配任意数量的参数。若目标类与接口与该切面在同一个包中，可以省略包名。   
+- execution \* com.desperado.spring.ArithmeticCalculator.\*(..):匹配ArithmeticCalculator中声明的所有方法，第一个 \* 代表任意修饰符以及任意返回值；第二个 \* 代表任意方法； .. 匹配任意数量的参数。若目标类与接口与该切面在同一个包中，可以省略包名。   
 
 - execution public \* com.desperado.spring.ArithmeticCalculator.*(..):匹配ArithmeticCalculator接口的所有公共方法。    
 

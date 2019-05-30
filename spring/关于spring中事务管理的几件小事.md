@@ -140,7 +140,7 @@ public void purchase(String isbn,String username){}
 public void purchase(String isbn,String username){}
 ```    
 
--在Spring 2.x事务通知中，超时和只读属性可以在<tx:method>元素中进行指定
+- 在Spring 2.x事务通知中，超时和只读属性可以在<tx:method>元素中进行指定
 ```xml
 <tx:advice id="bookShopTxAdvice" transaction-manager="transactionManager">
     <tx:attributes>
