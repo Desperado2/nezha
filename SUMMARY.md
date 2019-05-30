@@ -53,8 +53,10 @@
 	
 	* [(七)MYSQL读写分离](mysql/分库分布的几件小事（五）MYSQL读写分离.md)
 
-* [关于spring的几件小事](spring)	
+* [关于spring的几件小事](spring)
 	* [(一)关于spring中bean配置的几件小事](spring/关于spring中bean配置的几件小事.md)
+	* [(二)关于spring中AOP的几件小事](spring/关于spring中AOP的几件小事.md)
+	* [(三)关于spring中事务管理的几件小事](spring/关于spring中事务管理的几件小事.md)
 
 * [关于springMVC的几件小事](springMVC)	
 
