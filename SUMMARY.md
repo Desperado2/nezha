@@ -59,6 +59,9 @@
 	* [(三)关于spring中事务管理的几件小事](spring/关于spring中事务管理的几件小事.md)
 
 * [关于springMVC的几件小事](springMVC)	
+	* [(一)关于SpringMVC映射模型视图的几点小事](springMVC/关于SpringMVC映射模型视图的几点小事.md)
+	* [(一)关于SpringMVC的几件小事](springMVC/关于SpringMVC的几件小事.md)
+	
 
 * [关于mybatis的几件小事](mybatis)	
 	
