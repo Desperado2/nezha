@@ -2,6 +2,7 @@
 #### 1.文件上传
 - SpringMVC为文件上传提供了直接的支持，这种类型是通过即插即用的MultipartResolver技术的。Spring用Jakarta Commons FileUpload技术实现了一个MultipartResolver实现类:CommonsMultipartResolver.    
 - SpringMVC上下文中默认没有装配MultipartResolver，因此默认情况下不能处理文件的上传工作，如果想使用Spring的文件上传功能，需现在上下文中配置MultipartResolver。   
+
 #### 2. 配置MultipartResolver
 - defaultEncoding：必须和用户JSP的pageEncoing属性一致，以便正确解析表单的内容。   
 - 为了让CommonsMulitpartResolver正确工作，必须先将Jakarta Commons FileUpload及Jakarta Commons io的类包添加到类路径下。   
@@ -78,12 +79,12 @@ SpringMVC也可以使用拦截器对请求进行拦截处理，用户可以自�
 
 #### 2.HandlerExceptionResolver
 - DispatcherServlet默认装配的HandlerExceptionResolver：     
-    - 没有使用<mvc:annotation-driver />
+    - 没有使用<mvc:annotation-driver />    
          -AnnotationMethodHandlerExceptionResolver
          -DefaultHandlerExceptionResolver
          -ResponseStatusExceptionResolver
 
-    - 使用了<mvc:annotation-driver />
+    - 使用了<mvc:annotation-driver />      
         -ExceptionHandlerExceptionResolver
         -DefaultHandlerExceptionResolver
         -ResponseStatusExceptionResolver
