@@ -80,14 +80,14 @@ SpringMVC也可以使用拦截器对请求进行拦截处理，用户可以自�
 #### 2.HandlerExceptionResolver
 - DispatcherServlet默认装配的HandlerExceptionResolver：     
     - 没有使用<mvc:annotation-driver />    
-         -AnnotationMethodHandlerExceptionResolver
-         -DefaultHandlerExceptionResolver
-         -ResponseStatusExceptionResolver
+         -AnnotationMethodHandlerExceptionResolver     
+         -DefaultHandlerExceptionResolver     
+         -ResponseStatusExceptionResolver    
 
     - 使用了<mvc:annotation-driver />      
-        -ExceptionHandlerExceptionResolver
-        -DefaultHandlerExceptionResolver
-        -ResponseStatusExceptionResolver
+        -ExceptionHandlerExceptionResolver    
+        -DefaultHandlerExceptionResolver     
+        -ResponseStatusExceptionResolver    
 
 #### 3.ExceptionHandlerExceptionResolver
 - 主要处理Handler中用@ExceptionHandler注解定义的方法。    
