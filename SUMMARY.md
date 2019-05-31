@@ -60,7 +60,8 @@
 
 * [关于springMVC的几件小事](springMVC)	
 	* [(一)关于SpringMVC映射模型视图的几点小事](springMVC/关于SpringMVC映射模型视图的几点小事.md)
-	* [(一)关于SpringMVC的几件小事](springMVC/关于SpringMVC的几件小事.md)
+	* [(二)关于SpringMVC的几件小事](springMVC/关于SpringMVC的几件小事.md)
+	* [(三)关于SpringMVC拦截器和异常的几件小事](springMVC/关于SpringMVC拦截器和异常.md)
 	
 
 * [关于mybatis的几件小事](mybatis)	

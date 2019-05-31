@@ -27,6 +27,7 @@
 - 可以在SpringMVC的配置文件中配置<mvc:default-servlet-handler />的方式解决静态资源的问题：   
     - <mvc:default-servlet-handler />将在SpringMVC上下文中定义一个DefaultServletHttpRequestHandler，它会对进入DispatcherServlet的请求进行筛查，如果发现是没有经过映射的请求，就将该请求交由WEB应用服务器默认的Servlet处理。如果不是静态资源的请求，才由DispatcherServlet继续处理。    
     - 一般WEB应用服务器默认的Servlet的名称都是default。若所使用的WEB服务器的默认Servlet名称不对default，则需要通过default-servlet-name属性显示指定。
+
 ### 二.数据转换
 #### 1.数据绑定流程
   1. SpringMVC主框架将ServletRequest对象及目标方法的入参实例传递给WebDataBinderFactory实例，以创建DataBinder实例对象。     
@@ -40,6 +41,7 @@
  #### 2.数据转换
 - springMVC上下文内建了很多转换器，可完成大多数Java类型的转换工作。     
 - SpringMVC自带的转换器都在org.springframework.core.convert.support路径下面。   
+
 #### 3.自定义类型转换器
 - ConversionService是Spring类型转换体系的核心接口。   
 - 可以利用ConversionServiceFactoryBean在Spring的IOC容器中定义一个ConversionService。Spring将自动识别出IOC容器中的ConversionService，并在Bean属性配置及SpringMVC处理方法入参绑定等场合使用它进行数据的转换。   
@@ -107,7 +109,7 @@ java.util.Calendar、java.long.Long时间类型进行标注。
 #### 3.数组格式化
 @NumberFormat可对类似数字类型的属性进行标注，它拥有两个互斥的属性：    
    - style：类型为NumberFormat.Style。用于指定样式类型，包括三种:Style.NUMBER(正常数字类型)、Style.CURRENCY(货币类型)、Style.PERCENT(百分比类型)    
-  - pattern：类型为String，自定义样式，如pattern="#,###"
+   - pattern：类型为String，自定义样式，如pattern="#,###"
 
 ### 四.数据校验
 #### 1.JSR 303
@@ -200,6 +202,7 @@ java.util.Calendar、java.long.Long时间类型进行标注。
 - 默认情况下，SpringMVC根据Accept-Language参数判断客户端的本地化类型。   
 - 当接收到请求时，SpringMVC会在上下文中查找一个本地化解析器(LocalResolver)，找到后使用它获取请求所对应的本地化类型信息。   
 - SpringMVC还允许装配一个动态更改本地化类型的拦截器，这样通过指定一个请求参数就可以控制单个请求的本地化类型。    
+
 #### 2.本地化解析器和本地化拦截器
 - AcceptHeaderLocalResolver：根据HTTP请求头的Accept-Language参数确定本地化类型，如果没有显式定义本地化解析器，SpringMVC使用该解析器。     
 
@@ -218,6 +221,6 @@ java.util.Calendar、java.long.Long时间类型进行标注。
     </mvc:interceptors>
 ```
 
-#### 4.SessionLocaleResolver和LocaleChangeInterceptor工作原理
+#### 3.SessionLocaleResolver和LocaleChangeInterceptor工作原理
 
 ![image.png](/image/spring/4-4.png)

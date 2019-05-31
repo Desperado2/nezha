@@ -9,7 +9,7 @@
 - SpringMVC使用@RequestMapping注解为控制器指定可以出来那些URL请求。       
 - 在控制器的类定义及方法定义处都可以进行标注。      
      - 类定义处：提供初步的请求映射信息。相对于WEB应用的根目录。    
-      - 方法处：提供进一步的细分映射信息。相对于类定义处的URL。若类定义处未标注@RequestMapping，则方法标记处的URL相对于WEB应用的根目录。      
+     - 方法处：提供进一步的细分映射信息。相对于类定义处的URL。若类定义处未标注@RequestMapping，则方法标记处的URL相对于WEB应用的根目录。      
 - DispatcherServlet截获请求后，就通过控制器上@RequestMapping提供的映射信息确定请求所对应的处理方法。       
 
 #### 2.映射请求参数、请求方法或请求头    
@@ -20,7 +20,8 @@
      - param1:表示请求必须包含名为param1的请求参数。     
      - !param1:表示请求不能包含名为param1的请求参数。    
      - param1 != value1:表示请求包含名为param1的请求参数，但其值不能为value1.       
-      - {"param1=value","param2"}:请求必须包含名为param1和param2 两个请求参数，且parma1参数的值必须为value1。   
+     - {"param1=value","param2"}:请求必须包含名为param1和param2 两个请求参数，且parma1参数的值必须为value1。   
+
 #### 3.使用@RequestMapping映射请求的匹配符
   - Ant风格资源地址支持3种匹配符。     
     - ? : 匹配文件名中的一个字符。     
@@ -40,6 +41,7 @@
 - springMVC通过分析处理方法的签名，将HTTP请求信息绑定到处理方法的相应入参中。    
 - SpringMVC对控制器处理方法签名的限制是很宽松的，几乎可以按喜欢的任何方式对方法进行签名。    
 - 必要时可以对方法及方法入参标注相应的主键(@PathVariable、@RequestParam、@RequestHeader等)，SpringMVC框架会将HTTP请求的信息绑定到相应的方法入参中，并根据方法的返回值类型做出相应的后续处理。      
+
 #### 2.使用@RequestParam绑定请求参数值。     
 - 在处理方法入参处使用@RequestParam可以把请求参数传递给请求方法。
   - value：参数名。    
@@ -47,6 +49,7 @@
 
 #### 3.使用@RequestHeader绑定请求头的属性值    
   - 请求头包含了若干个属性，服务器可据此获知客户端的信息，通过@RequestHeader即可将请求头中的属性值绑定到处理方法的入参中。    
+
 #### 4.使用@CookieValue绑定请求参数中的Cookie的值    
 - @CookieValue可让处理方法入参绑定某个cookie值。    
 
@@ -67,7 +70,7 @@
 - 控制器处理方法的返回值如果为ModelAndView，则其既包含视图信息，也包含模型数据信息。     
 - 添加模型数据。   
     - ModelAndView addObject(String attributeName,Object attributeValue)
-     - ModelAndView addAllObject(Map<String,?> modeMap)
+    - ModelAndView addAllObject(Map<String,?> modeMap)
 
 - 设置视图
     - void setView(View view);
@@ -77,14 +80,14 @@
 - SpringMVC在内部使用了一个org.springframework.ui.Model接口存储模型数据。  
 - 具体步骤： 
     - SpringMVC在调用方法前会创建一个隐含的模型对象作为模型数据的存储容器。    
-     - 如果方法的入参为Map或Model类型，SpringMVC会将隐含模型的引用传递给这些入参。在方法体内，开发者可以通过这个入参对象访问到模型中的所有数据，也可以向模型中添加新的属性数据。    
+    - 如果方法的入参为Map或Model类型，SpringMVC会将隐含模型的引用传递给这些入参。在方法体内，开发者可以通过这个入参对象访问到模型中的所有数据，也可以向模型中添加新的属性数据。    
 
 #### 4.SessionAttributes
 - 若希望在多个请求之间共用摸个模型属性数据。则可以在控制器类上标注一个@SessionAttributes，SpringMVC将在模型中对应的属性暂存到HttpSession中。   
 - @SessionAttributes除了可以通过属性名指定需要放到会话中的属性外，还可以通过模式属性的对象类型指定那些模型属于需要放到会话中。    
      - @SessionAttributes(types=User.class)会将隐含模型中所有类型为User.class的属性添加到会话中。    
      - @SessionAttributes(value={"user1","user2"},)会将隐含模型中的名称为user1和user2的属性添加到会话中。
-       -@SessionAttributes(value{"user1"},types={User.class}) 可以同时进行指定。    
+     -@SessionAttributes(value{"user1"},types={User.class}) 可以同时进行指定。    
 
 #### 5.ModelAttributes
 - 在方法定义上使用@ModelAttributes注解：SpringMVC在调用目标处理方法前，会先逐个调用在方法级别上标注了@ModelAttributes的方法。    
@@ -110,6 +113,7 @@
 - 视图的作用是渲染模型数据，将模型里的数据以某种形式呈现个客户。   
 - 为了实现视图模型和具体实现技术的解耦，Spring在org.springframework.web.servlet包中定义了一个高度抽象的View接口。    
 - 视图对象由视图解析器负责实例化。由于视图是无状态的，所以他们不会有线程安全的问题。   
+
 #### 4.常用的视图实现类
 
 | 大类          | 视图类型                     | 说明                                                         |
