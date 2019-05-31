@@ -43,7 +43,7 @@ SpringMVC也可以使用拦截器对请求进行拦截处理，用户可以自�
 </mvc:interceptors>
 ```
 
-### 4.多个拦截器的执行顺序
+#### 4.多个拦截器的执行顺序
 
 ![image.png](/image/spring/5-2.png)
 
