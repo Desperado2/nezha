@@ -22,6 +22,7 @@
 - SqlSession的实例不是线程安全的，因此不能被共享。       
 - SqlSession每次使用完成后需要正确关闭，这个关闭操作是必须的。     
 - SqlSession可以直接调用方法的id进行数据库操作，但是一般还是推荐使用SqlSession获取到DAO接口的代理，执行代理对象的方法，可以更安全的进行类型检查操作。
+
 ### 二、全局配置文件
 - MyBatis的配置文件包含了影响MyBatis行为的设置和属性信息，文档的顶层结构如下：    
     - configuration 配置
@@ -124,7 +125,8 @@ StringTypeHandler|java.lang.String |CHAR、VARCHAR
 #### 5.日期类型的处理
 - 在JDK1.8之前，通过使用JSR310规范的Joda-Time来操作。1.8已经实现全部的JSR310规范了。     
 - 日期时间处理上，可以使用MyBatis基于JSR310编写的各种时间类型处理器
-- MyBatis3.4以前的版本需要我们收到去注册这些处理器，以后的版本会自动注册。   
+- MyBatis3.4以前的版本需要我们收到去注册这些处理器，以后的版本会自动注册。  
+ 
 ```xml
 <typeHandlers>
     <typeHandler handler="org.apache.ibatis.type.InstantTypeHandler"/>
@@ -139,7 +141,6 @@ StringTypeHandler|java.lang.String |CHAR、VARCHAR
     <typeHandler handler="org.apache.ibatis.type.YearMonthTypeHandler"/>
     <typeHandler handler="org.apache.ibatis.type.JapaneseDateTypeHandler"/>
 </typeHandlers>
-
 ```
 
 #### 6.自定义类型处理器
@@ -204,7 +205,8 @@ type有四种取值 UNPOOLED|POOLED|JNDI|自定义
 - 自定义：实现DataSourceFactory接口，定义数据源的获取方式。
 
 #### 9.databaseIdProvider环境
-- MyBatis可以根据不同的数据库厂商执行不同的语句。     
+- MyBatis可以根据不同的数据库厂商执行不同的语句。   
+  
 ```xml
 <databaseIdProvider type="DB_VENDOR">
       <property name="MySQL" value="mysql"/>
@@ -230,6 +232,7 @@ type有四种取值 UNPOOLED|POOLED|JNDI|自定义
 
 #### 10.mapper映射
 - mapper逐个注册SQL映射文件
+
 ```xml
 <mappers>
     <mapper resource="mybatis/mapper/PersonDao.xml" />
@@ -238,6 +241,7 @@ type有四种取值 UNPOOLED|POOLED|JNDI|自定义
 </mappers>
  ```   
 - 使用批量注册。这种方式要求SQL映射文件名必须和接口名相同并且在同一目录下。
+
 ```xml
 <mappers>
     <package name="com.desperado.dao" />

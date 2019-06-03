@@ -14,6 +14,7 @@
 -MyBatis利用本地缓存防止循环引用和加速重复嵌套查询，默认值为SESSION，这种情况下会缓存一个会话中执行的所有查询。若设置值为STATEMENT，本地会话仅用在语句执行上，对相同SqlSession的不同调用将不会共享数据。
 - 同一个会话期间只要查询过的数据都会被保存在当前SqlSession的一个Map中
       - key：hashCode+查询的SqlId+编写的sql查询语句+参数
+	  
 #### 3.一级缓存失效情况
 - 不同的SqlSession对应不同的一级缓存
 - 同一个SqlSession但是查询条件不同
