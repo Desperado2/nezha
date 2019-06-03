@@ -65,8 +65,8 @@
 	
 
 * [关于mybatis的几件小事](mybatis)	
-	* [(一)关于Mybatis的几件小事](mybatis/关于Mybatis的几件小事(一).md)
-	* [(二)关于Mybatis的几件小事](mybatis/关于Mybatis的几件小事(二).md)
+	* [(一)关于Mybatis的几件小事](mybatis/关于Mybatis的几件小事（一）.md)
+	* [(二)关于Mybatis的几件小事](mybatis/关于Mybatis的几件小事（二）.md)
 	
 
 * [关于MQ的几件小事](MQ)
