@@ -162,7 +162,8 @@ StringTypeHandler|java.lang.String |CHAR、VARCHAR
 #### 8.environments环境
 - MyBatis可以配置多种环境，比如开发、测试和生产环境需要有不同的配置。   
 - 每种环境使用一个environment标签配置并指定唯一标志符。   
-- 可以通过environments标签中的default属性指定一个环境的标识符来快速的切换环境。
+- 可以通过environments标签中的default属性指定一个环境的标识符来快速的切换环境。   
+
 **1.指定具体环境**   
 - id：指定当前环境的唯一标识
 - transactionManager和dataSource必须都要有
@@ -311,11 +312,13 @@ statementType|与前面相同，MyBatis支持STATEMENT，PREPARED和CALLABLE语�
 
 #### 4.参数处理
 - 参数也可以指定一个特殊的数据类型：   
+
 ```xml
 #{property,javaType=int,jdbcType=NUMERIC}
 
 #{height,javaType=double,jdbcType=NUMERIC,numericScale=2}
 ```
+
    -javaType通常可以从参数对象中去确定。
    -如果null被当做值来传递，对应所有可能为空的列，jdbcType需要被设置。 
     -对于数值类型，还可以设置小数点后保留的位数
