@@ -163,7 +163,7 @@ StringTypeHandler|java.lang.String |CHAR、VARCHAR
 - MyBatis可以配置多种环境，比如开发、测试和生产环境需要有不同的配置。   
 - 每种环境使用一个environment标签配置并指定唯一标志符。   
 - 可以通过environments标签中的default属性指定一个环境的标识符来快速的切换环境。
-##### 1.指定具体环境
+**1.指定具体环境**   
 - id：指定当前环境的唯一标识
 - transactionManager和dataSource必须都要有
 
@@ -191,13 +191,13 @@ StringTypeHandler|java.lang.String |CHAR、VARCHAR
 </environments>
 ```
 
-##### 2.transactionManager
+**2.transactionManager**
 type值取值有三种类型 JDBC|MANAGED|自定义
 - JDBC：使用了JDBC的事务提交和回滚设置，依赖于从数据源得到的连接来管理事务范围。对应JdbcTransactionFactory    
 - MANAGED：不提交或回滚一个连接，让容器来管理事务的整个生命周期。对应ManagedTransactionFactory
 - 自定义：实现TransactionFactory接口，type=全类名/别名。
 
-##### 3.dataSource
+**3.dataSource**
 type有四种取值 UNPOOLED|POOLED|JNDI|自定义
 - UNPOOLED：不使用连接池，对应UnpooledDataSourceFactory。   
 - POOLED：使用连接池，对应PooledDataSourceFactory。  
