@@ -69,7 +69,7 @@
 	* [(二)关于Mybatis的几件小事](mybatis/关于Mybatis的几件小事（二）.md)
 	
 * [关于SpringBoot的几件小事](springboot)
-	* [(一)关于SpringBoot的自动配置去启动过程](springboot/关于SpringBoot的自动配置和启动过程.md)		
+	* [(一)关于SpringBoot的自动配置和启动过程](springboot/关于SpringBoot的自动配置和启动过程.md)		
 
 * [关于MQ的几件小事](MQ)
 	* [(一)消息队列的用途、优缺点、技术选型](MQ/关于MQ的几件小事（一）消息队列的用途、优缺点、技术选型.md)

@@ -223,7 +223,7 @@ SpringBoot对SpringMVC的默认配置(WebMvcAutoConfiguration)如下：
 - 自动注入MessageCodesResolver，定义错误码生成规则。
 - 自动使用ConfigurableWebBindingInitializer。
 
-### 2.扩展SpringMVC
+### 3.扩展SpringMVC
  编写一个配置类(@Configuration)，是WebMvcConfigurerAdapter类型，不能标注@EnableWebMvc注解
 
 ```java
@@ -242,7 +242,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 3. 容器中所有的WebMvcConfigurer都会一起被注册。     
 4. 我们自定义的配置类也会被调用。     
 
-### 3.全面接管SpringMVC
+### 4.全面接管SpringMVC
 如果想要使SpringMVC的自动配置失效，只需要在我们自定义的配置类中添加@EnableWebMvc注解即可。
 
 ```java
@@ -258,21 +258,21 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 ```
 
 **原理**     
-1. @EnableWebMvc的注解
+1.@EnableWebMvc的注解
 
 ```java
 @Import(DelegatingWebMvcConfiguation.class)
 public @interface EnableWebMvc{}
 ```
 
-2. DelegatingWebMvcConfiguation
+2.DelegatingWebMvcConfiguation
 
 ```java
 @Configuration
 public class DelegatingWebMvcConfiguation extend WebMvcConfigurationSupport{}
 ```
 
-3. WebMvcAutoConfiguration
+3.WebMvcAutoConfiguration
 
 ```java
 @Configuration
@@ -287,15 +287,15 @@ public class DelegatingWebMvcConfiguation extend WebMvcConfigurationSupport{}
 public class WebMvcAutoConfiguration{}
 ```
 
-4. @EnableWebMvc会将WebMvcConfigurationSupport组件导入进来。 
-5. 导入的WebMvcConfigurationSupport只是SpringMVC最基本的功能。
+4.@EnableWebMvc会将WebMvcConfigurationSupport组件导入进来。 
+5.导入的WebMvcConfigurationSupport只是SpringMVC最基本的功能。
 
-### 4.修改默认配置
+### 5.修改默认配置
 1. SpringBoot在自动配置很多组件的时候，显卡容器中有没有用户自己配置的(@Bean 、@Component),如果有就用用户配置的，如果没有，才会进行自动配置；如果某些组件可以有多个，将用户配置的和自己默认的组合起来。
 2. 在SpringBoot中有许多的xxxConfigurer帮助我们进行扩展配置
 3. 在SpringBoot中有许多的xxxCustomizer帮助我们进行定制配置
 
-### 5.默认访问首页
+### 6.默认访问首页
 使用自定义WebMvcConfigurationAdapter进行配置
 
 ```java
@@ -325,7 +325,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 }
 ```
 
-### 6.国际化
+### 7.国际化
 1.编写国际化配置文件
 编写不同语言的配置文件，比如login.properties、login_en_US.properties、login_zh_CN.properties等。      
 2. SpringBoot自动配置好了管理国际化资源文件的组件。     
@@ -912,7 +912,8 @@ public class WebServerFactoryCustomizerBeanPostProcessor implements BeanPostProc
     }
 ```
 
-4.调用onRefresh();web的IOC容器重写了onRefresh方法。
+4.调用onRefresh();web的IOC容器重写了onRefresh方法。    
+
 5.Web IOC容器创建嵌入式的Servlet容器。
 
 ```java
@@ -1004,7 +1005,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 **规则**       
 1. 服务器启动会创建当前web应用里面每一个jar包里面的ServletContainerInitializer实例。     
-2. ServletContainerInitializer的实现放在jar包的META-INF/services文件下，有一个名为javax.servlet.ServletContainerInitializer的文件，内容就是ServletContainerInitializer实现类的全类名。
+2. ServletContainerInitializer的实现放在jar包的META-INF/services文件下，有一个名为javax.servlet.ServletContainerInitializer的文件，内容就是ServletContainerInitializer实现类的全类名。        
 3. 还可以使用@HandlerType，在启动应用时加载指定的类。   
 
 #### 4. 启动流程
