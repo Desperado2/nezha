@@ -54,20 +54,20 @@ SpEL|不支持|支持
 JSR303数据校验|支持|不支持
 复杂类型封装|支持|不支持
 
-- 属性名匹配规则
-    -person.firstName  使用标准方式
-    -person.first-name   使用-
-    -person.first_name   使用_
-    -PERSON_FIRST_NAME   推荐系统属性使用这种写法
+- 属性名匹配规则     
+    -person.firstName  使用标准方式      
+    -person.first-name   使用-        
+    -person.first\_name   使用\_       
+    -PERSON_FIRST_NAME   推荐系统属性使用这种写法     
 
-- @PropertySource
+- @PropertySource      
       加载指定的配置文件
 
-- ConfigurationProperties
-  -与@Bean结合为属性赋值
+- ConfigurationProperties      
+  -与@Bean结合为属性赋值         
   -与@PropertySource(只能用于properties文件)结合读取指定文件。  
 
-- ConfigurationProperties Validation
+- ConfigurationProperties Validation       
     -支持JSR303进行配置文件值校验。   
 
 ```java
@@ -93,7 +93,7 @@ public class Person{
     -\${random.int(10)}      
     -\${random.int[1024,65536]}     
 
-- 属性配置占用符
+- 属性配置占用符      
     -可以在配置文件中引用前面配置过的属性(Y优先级前面配置过的这里都可以使用)。     
     -\${app.name:默认值}来指定找不到属性时的默认值。         
 ```properties
@@ -114,7 +114,7 @@ profile是Spring对不同环境提供不同配置功能的支持，可以通过�
 spring.profiles.active=prod #激活指定配置
 spring.profiles=prod
 server.port=80
-\# default表示未指定时的默认配置
+# default表示未指定时的默认配置
 spring.profiles=default
 server.port=8080
 
@@ -188,12 +188,12 @@ Logback|logback-spring.xml、logback-spring.groovy、logback.xml或logback.groov
 Log4j2|log4j2-spring.xml、log4j2.xml
 JUL|logging.properties
 
-![image.png](/iamge/sp/1-1.png)
+![image.png](/image/sp/1-1.png)
 
 - 总结：  
-      1.SpringBoot底层也是使用slf4j+logback的方式进行日志记录。       
-      2.SpringBoot也把其他的日志都替换成了slf4j。      
-        3.如果要引入其他日志框架，要排除Spring框架的commons-logging依赖。
+    1.SpringBoot底层也是使用slf4j+logback的方式进行日志记录。       
+    2.SpringBoot也把其他的日志都替换成了slf4j。      
+    3.如果要引入其他日志框架，要排除Spring框架的commons-logging依赖。
 
 ## 四、Web开发
 ### 1.SpringBoot对静态资源的映射规则
@@ -237,10 +237,10 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 }
 ```
 **原理**       
-1. WebMvcAutoConfiguration是SpringMVC的自动配置类。     
-2. 在做其他自动配置时会导入。
-3. 容器中所有的WebMvcConfigurer都会一起被注册。 
-4. 我们自定义的配置类也会被调用。
+1. WebMvcAutoConfiguration是SpringMVC的自动配置类。       
+2. 在做其他自动配置时会导入。    
+3. 容器中所有的WebMvcConfigurer都会一起被注册。     
+4. 我们自定义的配置类也会被调用。     
 
 ### 3.全面接管SpringMVC
 如果想要使SpringMVC的自动配置失效，只需要在我们自定义的配置类中添加@EnableWebMvc注解即可。
@@ -257,7 +257,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 }
 ```
 
-**原理**
+**原理**     
 1. @EnableWebMvc的注解
 
 ```java
@@ -401,7 +401,7 @@ public class DefaultErrorAttributes implements ErrorAttributes {
 }
 ```
 
-2. 在BasicErrorController中处理/error请求
+2.在BasicErrorController中处理/error请求
 
 ```java
 @Controller
@@ -431,7 +431,7 @@ public class BasicErrorController extends AbstractErrorController {
 }
 ```
 
-3. ErrorPageCustomizer进行错误配置   
+3.ErrorPageCustomizer进行错误配置   
 
 ```java
 public class ErrorProperties {
@@ -443,7 +443,7 @@ public class ErrorProperties {
 }
 ```
 
-4. ErrorMvcAutoConfiguration生成错误页面
+4.ErrorMvcAutoConfiguration生成错误页面
 
 ```java
 public class ErrorMvcAutoConfiguration {
@@ -596,7 +596,7 @@ public class MyErrorAttributes extends DefaultErrorAttributes {
 ## 六、配置嵌入式Servlet容器
 SpringBoot默认使用Tomcat作为内嵌的Servlet容器
 
-![image.png](/iamge/sp/1-2.png)
+![image.png](/image/sp/1-2.png)
 
 ### 1.修改Servlet容器的配置
 在配置文件application文件中修改和server有关的配置。
@@ -611,7 +611,7 @@ server.tomcat.uri-encoding=utf-8
 编写一个EmbeddedServletContainerCustomizer(2.x中使用WebServerFactoryCustomizer)，来修改Servlet容器的配置。
 
 ```java
-@Bean
+    @Bean
 	public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer(){
 		return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>(){
 			@Override
@@ -744,14 +744,14 @@ class ServletWebServerFactoryConfiguration {
 }
 ```
 
-2. 嵌入式Servlet容器工厂
+2.嵌入式Servlet容器工厂
 
-![image.png](/iamge/sp/1-3.png)
+![image.png](/image/sp/1-3.png)
 
 
-3. 嵌入式的Servlet容器
+3.嵌入式的Servlet容器
 
-![image.png](/iamge/sp/1-4.png)
+![image.png](/image/sp/1-4.png)
 
 4.以tomcat为例
 
@@ -779,7 +779,7 @@ public WebServer getWebServer(ServletContextInitializer... initializers) {
 
 ```
 
-5. 容器中导入 WebServerFactoryCustomizerBeanPostProcessor    
+5.容器中导入 WebServerFactoryCustomizerBeanPostProcessor    
 
 ```java
 
@@ -858,7 +858,7 @@ public class WebServerFactoryCustomizerBeanPostProcessor implements BeanPostProc
     }
 ```
 
-3. 调用refresh(context);刷新上面创建好的IOC容器  
+3.调用refresh(context);刷新上面创建好的IOC容器  
 
 ```java
  public void refresh() throws BeansException, IllegalStateException {
@@ -912,8 +912,8 @@ public class WebServerFactoryCustomizerBeanPostProcessor implements BeanPostProc
     }
 ```
 
-4. 调用onRefresh();web的IOC容器重写了onRefresh方法。
-5. Web IOC容器创建嵌入式的Servlet容器。
+4.调用onRefresh();web的IOC容器重写了onRefresh方法。
+5.Web IOC容器创建嵌入式的Servlet容器。
 
 ```java
 private void createWebServer() {
@@ -934,9 +934,9 @@ private void createWebServer() {
     }
 ```
 
-6. 获取嵌入式的Servlet容器工厂： ServletWebServerFactory factory = this.getWebServerFactory();从IOC容器中获取ServletWebServerFactory组件；
+6.获取嵌入式的Servlet容器工厂： ServletWebServerFactory factory = this.getWebServerFactory();从IOC容器中获取ServletWebServerFactory组件；
 
-7. 使用容器工厂获取嵌入式的Servlet容器：his.webServer = factory.getWebServer(new ServletContextInitializer[]{this.getSelfInitializer()})；
+7.使用容器工厂获取嵌入式的Servlet容器：his.webServer = factory.getWebServer(new ServletContextInitializer[]{this.getSelfInitializer()})；
 
 ```java
 public WebServer getWebServer(ServletContextInitializer... initializers) {
@@ -961,7 +961,7 @@ public WebServer getWebServer(ServletContextInitializer... initializers) {
     }
 ```
 
-8. 嵌入式的Servlet容器创建并启动Servlet容器。
+8.嵌入式的Servlet容器创建并启动Servlet容器。
 
 9.先启动嵌入式的Servlet容器，再将IOC容器中剩余的没有创建出来的对象获取出来、IOC容器启动就会创建嵌入式的Servlet容器。
 
@@ -983,7 +983,7 @@ public WebServer getWebServer(ServletContextInitializer... initializers) {
 
 ```
 
-3. 必须编写一个SpringBootServletInitializer的子类，并调用configure方法。       
+3.必须编写一个SpringBootServletInitializer的子类，并调用configure方法。       
 
 ```java
 public class ServletInitializer extends SpringBootServletInitializer {
@@ -996,7 +996,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 ```
 
-4. 启动服务器就可以了。
+4.启动服务器就可以了。
 
 #### 3.原理与规则
 **原理**       
@@ -1011,9 +1011,9 @@ public class ServletInitializer extends SpringBootServletInitializer {
 1. 启动tomcat。
 2. 加载spring-web包下META-INF/services下面的javax.servlet.ServletContainerInitializer文件。    
 
-![image.png](/iamge/sp/1-5.png)
+![image.png](/image/sp/1-5.png)
 
-3. SpringServletContainerInitializer将@HandlerType标注的所有这个类型的类都传入搭配onStartup方法的Set中，为这些WebApplicationInitializer类型的类创建实例。    
+3.SpringServletContainerInitializer将@HandlerType标注的所有这个类型的类都传入搭配onStartup方法的Set中，为这些WebApplicationInitializer类型的类创建实例。    
 
 ```java
 @HandlesTypes({WebApplicationInitializer.class})
@@ -1056,13 +1056,13 @@ public class SpringServletContainerInitializer implements ServletContainerInitia
 }
 ```
 
-4. 每个WebApplicationInitializer到调用自己的onStartup()方法。    
+4.每个WebApplicationInitializer到调用自己的onStartup()方法。    
 
-![image.png](/iamge/sp/1-6.png)
+![image.png](/image/sp/1-6.png)
 
-5. 相当于SpringBootServletInitializer的类会被创建对象，并执行onStartup()方法。    
+5.相当于SpringBootServletInitializer的类会被创建对象，并执行onStartup()方法。    
 
-6. SpringBootServletInitializer实例执行onStartup的时候会crateRootApplicationContext创建容器。   
+6.SpringBootServletInitializer实例执行onStartup的时候会crateRootApplicationContext创建容器。   
 
 ```java
 protected WebApplicationContext createRootApplicationContext(ServletContext servletContext) {
@@ -1097,6 +1097,6 @@ protected WebApplicationContext createRootApplicationContext(ServletContext serv
     }
 ```
 
-7. Spring的应用启动并且创建IOC容器。
+7.Spring的应用启动并且创建IOC容器。
 
-8. 先启动Servlet容器，再启动SpringBoot应用。
+8.先启动Servlet容器，再启动SpringBoot应用。
