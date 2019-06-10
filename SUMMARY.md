@@ -70,6 +70,9 @@
 	
 * [关于SpringBoot的几件小事](springboot)
 	* [(一)关于SpringBoot的自动配置和启动过程](springboot/关于SpringBoot的自动配置和启动过程.md)		
+	* [(二)关于SpringBoot的数据访问](springboot/SpringBoot的数据访问.md)		
+	* [(三)关于SpringBoot的启动配置原理](springboot/SpringBoot的启动配置原理.md)		
+	* [(四)关于SpringBoot与缓存、消息、检索、任务、安全与监控](springboot/SpringBoot与缓存、消息、检索、任务、安全与监控.md)		
 
 * [关于MQ的几件小事](MQ)
 	* [(一)消息队列的用途、优缺点、技术选型](MQ/关于MQ的几件小事（一）消息队列的用途、优缺点、技术选型.md)
