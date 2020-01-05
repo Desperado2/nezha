@@ -38,8 +38,11 @@
 	* [(四)TCP的滑窗机制](network/TCP的滑窗机制.md)
 	* [(五)HHTP与HTTPS](network/HHTP与HTTPS.md)
 	
-* [数据结构与算法](Data Structures and Algorithms)
-    * [算法时间复杂度分析](Data Structures and Algorithms/algorithms/算法时间复杂度分析.md)
+* [数据结构](DataStructures)
+    
+    
+* [算法](algorithms)
+    * [算法时间复杂度分析](algorithms/算法时间复杂度分析.md)
 
 
 * [关于mysql的几件小事](mysql)
