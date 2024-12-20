@@ -93,6 +93,7 @@
 		* [(九)redis的并发竞争问题](redis/关于redis的几件小事（九）redis的并发竞争问题.md)
 		
 		* [(十)redis-cluster模式](redis/关于redis的几件小事（十）redis-cluster模式.md)
+		* [(十一)Redis缓存保持数据类型.md](redis/Redis缓存保持数据类型.md)
 
 
 * [后端开发](backend)
